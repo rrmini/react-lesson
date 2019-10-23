@@ -1,3 +1,3 @@
-export const script = () => {
-		console.log('script.js');
-};
+// export const script = () => {
+// 		console.log('script.js');
+// };
