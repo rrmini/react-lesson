@@ -1,6 +1,9 @@
 import React from 'react'
 // import Btn from './Button';
 import Message from './Message.jsx'
+import Header from './Header';
+import '../css/styles.css'
+import { Container, Input, Button } from '@material-ui/core';
 
 const botAnswers = [
 		{from: 'AngryBot', text: 'Отстань, я робот'},
@@ -13,7 +16,11 @@ function randomChoice(arr) {
 		return arr[Math.floor(arr.length * Math.random())];
 }
 
-export default class App extends React.Component {
+export default class MessageFild extends React.Component {
+		constructor(props){
+				super(props);
+				this.textInput = React.createRef();
+		}
 
 		state = {
 				header: 'Чат',
@@ -21,45 +28,79 @@ export default class App extends React.Component {
 				msg: [
 						{from: 'Fred',text: 'Привет'},
 						{from: 'Fred',text: 'Как дела?'}
-				]
+				],
+
+				input: '',
 		};
 
-		componentDidUpdate (){
-				// console.log(new Date().getTime());
+		componentDidUpdate (_prevProps, prevState){
 				const { msg } = this.state;
 
-				let upDateMessage = () => {
+				let upDateMessage = () => {   //  bot answer
 						this.setState({ 'msg': [...msg, randomChoice(botAnswers)]});
 				};
 
-				if (msg[msg.length-1].from !== 'AngryBot') {
-						setTimeout(upDateMessage, 1000);
+				if (msg[msg.length-1].from !== 'AngryBot' && prevState.msg.length < msg.length) {
+						setTimeout(() => upDateMessage(), 1000);
 				}
-				
-
 		}
 
-		componentDidMount () {}
+		componentDidMount () {
+				this.textInput.current.focus();
+		}
 
-		handelSendMessage = () => {
-				const { msg } = this.state;
-				let answer = {from: 'Jon', text: 'I`ts Ok'};
-				setTimeout(() => {this.setState({ 'msg': [...msg, answer]})}, 1000);
+		sendMessage = (message) => {
+				if ( message !== '') {
+						const { msg } = this.state;
+						let answer = {from: 'My', text: message};
+						this.setState({ 'msg': [...msg, answer]}); // my message
+						this.setState({ input: '' });
+				}
+		};
 
+		handleChange = (e) => {
+				// console.log(e.target.value);
+				this.setState({ [e.target.name]: e.target.value});
+		};
+
+		handleKeyUp = (e, message) => {
+				if (e.keyCode === 13) {
+						this.sendMessage(message);
+				}
+		};
+
+		handleClick = (message) => {
+				this.sendMessage(message);
 		};
 
 		render() {
 
 				const { msg } = this.state;
 
-				const msgElements = msg.map(item => <Message key={(new Date().getTime()) * Math.random()} from={item.from} text={item.text}/>);
+				const msgElements = msg.map(item => <Message
+						key={(new Date().getTime()) * Math.random()} from={item.from}
+						text={item.text}/>);
 
 				return(
-						<div>
-								<h1 key="parent" >{ this.state.header }</h1>
-								{ msgElements }
-								<button onClick = { this.handelSendMessage }>Send message</button>
-						</div>
+								<div className="_layout">
+										<div className='message-field'>
+												{ msgElements }
+										</div>
+										<Input
+													 ref={ this.textInput }
+													 type="text"
+										       name='input'
+										       style={ { fontSize: '22px',
+												             padding: '10px', } }
+										       placeholder='Enter your message'
+										       value={ this.state.input }
+										       onChange={ this.handleChange }
+										       onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) } />
+
+
+										<Button className="message-sender"
+										        onClick = { () => this.handleClick(this.state.input) }>Send message</Button>
+								</div>
 				)
 		}
 }
