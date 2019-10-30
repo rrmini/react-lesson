@@ -5,10 +5,14 @@ import PropTypes from 'prop-types'
 
 export default class Header extends React.Component {
 		static propTypes = {
-				title: PropTypes.string,
+				chatId: PropTypes.number,
+		};
+
+		static defaultProps = {
+				chatId: 1,
 		};
 
 		render() {
-				return <h1 className="header"> { this.props.title } </h1>
+				return <h1 className="header">Chat { this.props.chatId } </h1>
 		}
 }

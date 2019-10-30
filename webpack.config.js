@@ -42,4 +42,12 @@ module.exports = {
 				modules: [`${__dirname}/static_src`, 'node_modules'],
 				extensions: ['.js', '.jsx'],
 		},
+		devServer: {
+				port: 8080,
+				historyApiFallback: {
+						index: 'index.html'
+				}
+		},
+		devtool: 'cheap-inline-module-source-map',
+
 };

@@ -1,15 +1,14 @@
 import React from 'react'
-// import Btn from './Button';
 import Message from './Message.jsx'
-import Header from './Header';
+import PropTypes from 'prop-types'
 import '../css/styles.css'
-import { Container, Input, Button } from '@material-ui/core';
+import { Input, Button } from '@material-ui/core';
 
 const botAnswers = [
-		{from: 'AngryBot', text: 'Отстань, я робот'},
-		{from: 'AngryBot', text: 'Кто такая Сири ???'},
-		{from: 'AngryBot', text: 'Поговорите лучше с Алисой'},
-		{from: 'AngryBot', text: 'Тебе конец, ястребиный глаз!'},
+		'Отстань, я робот',
+		'Кто такая Сири ???',
+		'Поговорите лучше с Алисой',
+		'Тебе конец, ястребиный глаз!',
 ];
 
 function randomChoice(arr) {
@@ -21,69 +20,80 @@ export default class MessageFild extends React.Component {
 				super(props);
 				this.textInput = React.createRef();
 		}
+		static propTypes = {
+				chatId: PropTypes.number.isRequired,
+		};
 
 		state = {
-				header: 'Чат',
+				chats: [[1,2],[],[]],
 
 				msg: [
-						{from: 'Fred',text: 'Привет'},
-						{from: 'Fred',text: 'Как дела?'}
-				],
-
+							{from: 'Fred', text: 'Привет'},
+							{from: 'Fred', text: 'Как дела?'},
+						],
 				input: '',
 		};
 
 		componentDidUpdate (_prevProps, prevState){
-				const { msg } = this.state;
 
-				let upDateMessage = () => {   //  bot answer
-						this.setState({ 'msg': [...msg, randomChoice(botAnswers)]});
-				};
+				let prevLength = prevState.msg.length;
+				let stateLength = this.state.msg.length;
 
-				if (msg[msg.length-1].from !== 'AngryBot' && prevState.msg.length < msg.length) {
-						setTimeout(() => upDateMessage(), 1000);
+				if (prevLength < stateLength &&
+						this.state.msg[stateLength -1].from !== 'AngryBot') {
+								setTimeout(() => this.sendMessage('AngryBot', randomChoice(botAnswers)), 1000);
 				}
+				document.getElementById('messageField').scrollTop = 9999;
 		}
 
 		componentDidMount () {
-				this.textInput.current.focus();
+				this.textInput.current.focus;
 		}
 
-		sendMessage = (message) => {
-				if ( message !== '') {
-						const { msg } = this.state;
-						let answer = {from: 'My', text: message};
-						this.setState({ 'msg': [...msg, answer]}); // my message
-						this.setState({ input: '' });
+		sendMessage = (sender, message) => {
+
+				const { chats, msg } = this.state; // копия объекта
+
+				if( message !== '' ) { //
+						chats[this.props.chatId-1] = [...chats[this.props.chatId-1], msg.length+1];
+						this.setState({
+								msg: [...msg,{from: sender, text: message}],
+								chats : chats,
+								input: '',
+						});
 				}
+
 		};
 
 		handleChange = (e) => {
-				// console.log(e.target.value);
 				this.setState({ [e.target.name]: e.target.value});
 		};
 
 		handleKeyUp = (e, message) => {
 				if (e.keyCode === 13) {
-						this.sendMessage(message);
+						this.sendMessage('My', message);
 				}
 		};
 
 		handleClick = (message) => {
-				this.sendMessage(message);
+				this.sendMessage('My', message);
 		};
 
 		render() {
 
-				const { msg } = this.state;
+				const { msg, chats } = this.state;
+				const { chatId } = this.props;
 
-				const msgElements = msg.map(item => <Message
-						key={(new Date().getTime()) * Math.random()} from={item.from}
-						text={item.text}/>);
+				const msgElements = chats[chatId-1].map( messageId =>
+						<Message
+						key={(new Date().getTime()) * Math.random()}
+						from={ msg[messageId - 1].from }
+						text={msg[messageId - 1].text}
+						/>);
 
 				return(
 								<div className="_layout">
-										<div className='message-field'>
+										<div className='message-field' id='messageField'>
 												{ msgElements }
 										</div>
 										<Input
@@ -99,7 +109,9 @@ export default class MessageFild extends React.Component {
 
 
 										<Button className="message-sender"
-										        onClick = { () => this.handleClick(this.state.input) }>Send message</Button>
+										        onClick = { () => this.handleClick(this.state.input) }>
+												Send message
+										</Button>
 								</div>
 				)
 		}
