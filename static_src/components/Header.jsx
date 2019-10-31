@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 export default class Header extends React.Component {
 		static propTypes = {
-				chatId: PropTypes.number,
+				chatId: PropTypes.number.isRequired,
 		};
 
 		static defaultProps = {

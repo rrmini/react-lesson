@@ -3,17 +3,7 @@ import Message from './Message.jsx'
 import PropTypes from 'prop-types'
 import '../css/styles.css'
 import { Input, Button } from '@material-ui/core';
-
-const botAnswers = [
-		'Отстань, я робот',
-		'Кто такая Сири ???',
-		'Поговорите лучше с Алисой',
-		'Тебе конец, ястребиный глаз!',
-];
-
-function randomChoice(arr) {
-		return arr[Math.floor(arr.length * Math.random())];
-}
+import States from './States'
 
 export default class MessageFild extends React.Component {
 		constructor(props){
@@ -22,67 +12,20 @@ export default class MessageFild extends React.Component {
 		}
 		static propTypes = {
 				chatId: PropTypes.number.isRequired,
+				chats: PropTypes.array.isRequired,
+				onClick: PropTypes.func.isRequired,
+				handleChange: PropTypes.func.isRequired,
+				msg: PropTypes.array.isRequired,
+				input: PropTypes.string.isRequired,
+				handleKeyUp: PropTypes.func.isRequired,
 		};
-
-		state = {
-				chats: [[1,2],[],[]],
-
-				msg: [
-							{from: 'Fred', text: 'Привет'},
-							{from: 'Fred', text: 'Как дела?'},
-						],
-				input: '',
-		};
-
-		componentDidUpdate (_prevProps, prevState){
-
-				let prevLength = prevState.msg.length;
-				let stateLength = this.state.msg.length;
-
-				if (prevLength < stateLength &&
-						this.state.msg[stateLength -1].from !== 'AngryBot') {
-								setTimeout(() => this.sendMessage('AngryBot', randomChoice(botAnswers)), 1000);
-				}
-				document.getElementById('messageField').scrollTop = 9999;
-		}
 
 		componentDidMount () {
 				this.textInput.current.focus;
 		}
 
-		sendMessage = (sender, message) => {
-
-				const { chats, msg } = this.state; // копия объекта
-
-				if( message !== '' ) { //
-						chats[this.props.chatId-1] = [...chats[this.props.chatId-1], msg.length+1];
-						this.setState({
-								msg: [...msg,{from: sender, text: message}],
-								chats : chats,
-								input: '',
-						});
-				}
-
-		};
-
-		handleChange = (e) => {
-				this.setState({ [e.target.name]: e.target.value});
-		};
-
-		handleKeyUp = (e, message) => {
-				if (e.keyCode === 13) {
-						this.sendMessage('My', message);
-				}
-		};
-
-		handleClick = (message) => {
-				this.sendMessage('My', message);
-		};
-
 		render() {
-
-				const { msg, chats } = this.state;
-				const { chatId } = this.props;
+				const { msg, chatId, chats } = this.props;
 
 				const msgElements = chats[chatId-1].map( messageId =>
 						<Message
@@ -93,6 +36,7 @@ export default class MessageFild extends React.Component {
 
 				return(
 								<div className="_layout">
+										<States/>
 										<div className='message-field' id='messageField'>
 												{ msgElements }
 										</div>
@@ -103,13 +47,14 @@ export default class MessageFild extends React.Component {
 										       style={ { fontSize: '22px',
 												             padding: '10px', } }
 										       placeholder='Enter your message'
-										       value={ this.state.input }
-										       onChange={ this.handleChange }
-										       onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) } />
+										       value={ this.props.input }
+										       onChange={ this.props.handleChange }
+										       onKeyUp={(event) => this.props.handleKeyUp }
+										/>
 
 
 										<Button className="message-sender"
-										        onClick = { () => this.handleClick(this.state.input) }>
+										        onClick = { () => {this.props.onClick()} }>
 												Send message
 										</Button>
 								</div>

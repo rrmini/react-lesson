@@ -1,58 +1,33 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button'
-import States from './States'
+import ChatItem from './ChatItem'
 
 
 export default class ChatList extends React.Component {
-
-		handleAddChat = () => {
-				let { chats, messages } = this.state;
-				this.setState({
-						chats : [...chats, 'newChat']
-				});
-				States.state.chats = [...chats, 'newChat'];
-				this.setState({
-						messages: {...messages,[Object.keys(messages).length + 1]: {text: 'hello', sender: 'Jhon'}}
-				});
-				console.log(this.state.messages);
-
+		static propTypes = {
+				chats: PropTypes.array.isRequired,
+				onClick: PropTypes.func.isRequired,
 		};
 
-		state = {
-				chats : States.state.chats,
-				messages: {
-						1: { text: "Привет!", sender: 'bot' },
-						2: { text: "Здравствуйте!", sender: 'bot' },
-				},
-		};
 
 		render () {
+				const { chats } = this.props;
+
+				const chatItems = chats.map( item => <ChatItem
+						key={(new Date().getTime()) * Math.random()}
+						chatId={chats.indexOf(item) +1}
+						chatName={'Chat ' + (chats.indexOf(item) +1)}/>);
+
 				return(
 						<div>
-						<List component="nav" aria-label="main mailbox folders">
-								<ListItem button>
-										<Link to="/chat/1/">
-												<ListItemText primary="Cats" />
-										</Link>
-								</ListItem>
-								<ListItem button>
-										<Link to="/chat/2/">
-												<ListItemText primary="Dogs" />
-										</Link>
-								</ListItem>
-								<ListItem button>
-										<Link to="/chat/3/">
-												<ListItemText primary="Animals" />
-										</Link>
-								</ListItem>
-						</List>
-						<Button className="message-sender" onClick = { () => this.handleAddChat() }>
-									add chat
-						</Button>
+								<List component="nav" aria-label="main mailbox folders">
+										{ chatItems }
+								</List>
+								<Button className="message-sender" onClick={() => this.props.onClick()}>
+											add chat
+								</Button>
 						</div>
 				)
 		}
