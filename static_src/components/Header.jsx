@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 
 
@@ -13,6 +14,10 @@ export default class Header extends React.Component {
 		};
 
 		render() {
-				return <h1 className="header">Chat { this.props.chatId } </h1>
+				return (
+				<div>
+					<h1 className="header">Chat { this.props.chatId } </h1>
+					<p style={{textAlign : 'end'}}><Link to="/profile">profile</Link></p>
+				</div>)
 		}
 }
