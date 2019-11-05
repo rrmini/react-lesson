@@ -53,7 +53,8 @@ class MessageField extends React.Component {
 
 		handleSendMessage = (sender, message) => {
 				if (this.state.input.length > 0 || sender === 'AngryBot') {
-						this.props.sendMessage('', message,  sender, this.props.chatId);
+						const messageId = Object.keys(this.props.msg).length +1;
+						this.props.sendMessage(messageId, message,  sender, this.props.chatId);
 				}
 				if (sender === 'me') {
 						this.setState({ input: '' });
@@ -111,9 +112,9 @@ class MessageField extends React.Component {
 
 const mapStateToProps = ({ chatReducer, messageReducer }) => ({
 		chats: chatReducer.chats,
-		msg: chatReducer.msg,
+		msg: messageReducer.msg,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({sendMessage}, dispatch); //sendMessage()
+const mapDispatchToProps = dispatch => bindActionCreators({sendMessage}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageField);
