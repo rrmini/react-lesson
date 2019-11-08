@@ -13,10 +13,10 @@ export default class ChatItem extends React.Component {
 
 		render() {
 				return (
-						<ListItem button>
-								<Link to={ `/chat/${this.props.chatId}` } >
+						<ListItem button component={Link} to={ `/chat/${this.props.chatId}`}>
+								{/*<Link to={ `/chat/${this.props.chatId}` } >*/}
 										<ListItemText primary={ this.props.chatName } />
-								</Link>
+								{/*</Link>*/}
 						</ListItem>
 				)
 		}

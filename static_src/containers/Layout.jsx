@@ -6,13 +6,13 @@ import Header from '../components/Header'
 import MessageField from './MessageFild'
 import ChatList from './ChatList'
 // import { sendMessage } from "../actions/messageActions";
-import connect from "react-redux/es/connect/connect";
+// import connect from "react-redux/es/connect/connect";
 
 
 
 
 
-class Layout extends React.Component {
+export default class Layout extends React.Component {
 		static propTypes = {
 				chatId: PropTypes.number.isRequired,
 		};
@@ -25,13 +25,13 @@ class Layout extends React.Component {
 				return(
 						<Container>
 								<Grid container spacing={3}>
-										<Grid item xs={12}>
+										<Grid item xs={12} md={12}>
 												<Header chatId={ this.props.chatId }/>
 										</Grid>
-										<Grid item xs={4}>
+										<Grid item xs={12} md={4}>
 												<ChatList/>
 										</Grid>
-										<Grid item xs={8}>
+										<Grid item xs={12} md={8}>
 												<MessageField
 														chatId={ this.props.chatId}
 												 />
@@ -42,8 +42,8 @@ class Layout extends React.Component {
 		}
 }
 
-const mapStateToProps = ({  }) => ({});
-
-const mapDispatchToProps = dispatch => bindActionCreators({  }, dispatch); //sendMessage
-
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+// const mapStateToProps = ({  }) => ({});
+//
+// const mapDispatchToProps = dispatch => bindActionCreators({  }, dispatch); //sendMessage
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(Layout);

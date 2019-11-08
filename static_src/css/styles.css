@@ -1,9 +1,14 @@
+
+body {
+		font-family: Roboto;
+}
+
 .message-field {
 		display: flex;
 		flex-direction: column;
 		background-color: #e2e2e2;
-		height: 400px;
-		width: 100%;
+		height: 320px;
+		/*width: 100%;*/
 		padding: 20px;
 		overflow-y: scroll;
 		transition:all ease-in-out 0.4s
@@ -27,6 +32,7 @@
 }
 
 .message-sender {
+		margin: 15px !important;
 		padding: 15px;
 		color: gray;
 		font-size: 14px;

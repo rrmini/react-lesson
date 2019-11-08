@@ -6,6 +6,7 @@ import List from '@material-ui/core/List'
 import { Input, Button } from '@material-ui/core'
 import ChatItem from '../components/ChatItem'
 import { addChat } from "../actions/chatActions"
+import AddIcon from '@material-ui/icons/Add';
 
 
 class ChatList extends React.Component {
@@ -59,7 +60,9 @@ class ChatList extends React.Component {
 										onChange={ this.handleChange }
 										onKeyUp={this.handleKeyUp }
 								/>
-								<Button className="message-sender" onClick={() => this.handleAddChat()}>
+								<Button className="message-sender"
+								        endIcon={<AddIcon/>}
+								        onClick={() => this.handleAddChat()}>
 											add chat
 								</Button>
 						</div>

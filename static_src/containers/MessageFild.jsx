@@ -6,6 +6,7 @@ import connect from "react-redux/es/connect/connect";
 import '../css/styles.css'
 import { Input, Button } from '@material-ui/core';
 import { sendMessage } from '../actions/messageActions'
+import SendIcon from '@material-ui/icons/Send';
 
 const botAnswers = [
 		'Отстань, я робот',
@@ -102,6 +103,8 @@ class MessageField extends React.Component {
 
 
 										<Button className="message-sender"
+										        variant={"contained"}
+										        endIcon={<SendIcon/>}
 										        onClick = { () => this.handleSendMessage('me', this.state.input) }>
 												Send message
 										</Button>
