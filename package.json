@@ -39,6 +39,7 @@
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.4",
+    "redux-persist": "^6.0.0",
     "style-loader": "^1.0.0",
     "typeface-roboto": "0.0.75",
     "webpack": "^4.41.2",
