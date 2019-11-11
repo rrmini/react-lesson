@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
+// import { bindActionCreators } from "redux";
 import { Container, Grid} from '@material-ui/core';
 import Header from '../components/Header'
 import MessageField from './MessageFild'

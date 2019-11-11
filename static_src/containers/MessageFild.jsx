@@ -41,18 +41,20 @@ class MessageField extends React.Component {
 		}
 
 		componentDidUpdate (prevProps, _prevState){
-						const { msg } = this.props;
-						let prevLength = Object.keys(prevProps.msg).length;
-						let stateLength = Object.keys(msg).length;
-
-						if (prevLength < stateLength &&
-								Object.values(msg)[Object.values(msg).length-1].from !== 'AngryBot') {
-								setTimeout(() => this.props.sendMessage('',randomChoice(botAnswers), 'AngryBot',  this.props.chatId), 1000);
-						}
+						// const { msg } = this.props;
+						// let prevLength = Object.keys(prevProps.msg).length;
+						// let stateLength = Object.keys(msg).length;
+						// const messageId = Object.keys(this.props.msg).length +1;
+						//
+						// if (prevLength < stateLength &&
+						// 		Object.values(msg)[Object.values(msg).length-1].from !== 'AngryBot') {
+						// 		setTimeout(() => this.props.sendMessage(messageId,randomChoice(botAnswers), 'AngryBot',  this.props.chatId), 1000);
+						// }
 						document.getElementById('messageField').scrollTop = 9999;
 				}
 
 		handleSendMessage = (sender, message) => {
+
 				if (this.state.input.length > 0 || sender === 'AngryBot') {
 						const messageId = Object.keys(this.props.msg).length +1;
 						this.props.sendMessage(messageId, message,  sender, this.props.chatId);

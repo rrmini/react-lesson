@@ -13,6 +13,7 @@ const initialStore = {
 export default function chatReducer(store = initialStore, action) {
 		switch (action.type) {
 				case SEND_MESSAGE: {
+						// console.log('SEND_MESSAGE chatReducer');
 						return update(store, {
 								chats:{ $merge: { [action.chatId]: {
 										title: store.chats[action.chatId].title,
