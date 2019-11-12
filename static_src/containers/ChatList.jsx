@@ -43,6 +43,7 @@ class ChatList extends React.Component {
 						key={(new Date().getTime()) * Math.random()}
 						chatId={chatId}
 						chatName= { chats[chatId].title }
+						hasNews={chats[chatId].hasNews}
 				/>);
 
 				return(

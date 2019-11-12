@@ -11,7 +11,6 @@ const initialStore = {
 export default function messageReducer(store = initialStore, action) {
 		switch (action.type) {
 				case SEND_MESSAGE: {
-						// console.log('SEND_MESSAGE messageReducer');
 						return update(
 								store, {
 										msg:{ $merge: {[action.messageId]: {from: action.sender, text: action.text}}},

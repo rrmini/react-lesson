@@ -9,7 +9,6 @@ export default class Child extends React.Component {
 				text: PropTypes.string.isRequired,
 		};
 
-
 		render() {
 				return(
 						<div className="message"
