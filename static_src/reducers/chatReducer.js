@@ -1,7 +1,7 @@
-import update from 'immutability-helper';
+import update, { extend }  from 'immutability-helper';
 import { SEND_MESSAGE } from "../actions/messageActions";
 import { ADD_CHAT } from "../actions/chatActions";
-import {DEL_CHAT} from "../actions/deleteChatAction";
+import {REMOVE_CHAT} from "../actions/removeChatAction";
 import { RESET_CHAT } from "../actions/resetChatAction";
 
 const initialStore = {
@@ -43,9 +43,16 @@ export default function chatReducer(store = initialStore, action) {
 								hasNews: { $set: false }
 						} } } );
 				}
-				case DEL_CHAT: {
+				case REMOVE_CHAT: {
 						const chatId = action.chatId;
-						console.log('дошли до редусера case DEL_CHAT:' + chatId);
+
+						update.extend('$unset', function (keyToRemove, original) {
+								let copy = Object.assign({}, original);
+								delete copy[keyToRemove];
+								return copy
+						});
+
+						return update(store, {chats: {$unset: [chatId]} } );
 				}
 				default:
 						return store;

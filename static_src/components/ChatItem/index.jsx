@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import connect from 'react-redux/es/connect/connect'
 import { push } from 'connected-react-router'
-import { deleteChat } from '../../actions/deleteChatAction'
+import { removeChat } from '../../actions/removeChatAction'
 
 //import { Link } from 'react-router-dom'
 // import { makeStyles } from '@material-ui/core/styles';
@@ -21,7 +21,7 @@ class ChatItem extends React.Component {
 				chatName: PropTypes.string.isRequired,
 				push: PropTypes.func.isRequired,
 				hasNews: PropTypes.bool.isRequired,
-				deleteChat: PropTypes.func.isRequired,
+				removeChat: PropTypes.func.isRequired,
 		};
 
 		static defaultProps = {
@@ -33,9 +33,9 @@ class ChatItem extends React.Component {
 				// this.props.hasNews = false;
 		};
 
-		handleDelete = (chatId) => {
-				this.props.deleteChat(chatId)
-				console.log('треба удалить чат ' +chatId);
+		handleRemove = (chatId) => {
+				this.props.removeChat(chatId)
+				// console.log('треба удалить чат ' +chatId);
 		};
 
 		render() {
@@ -49,7 +49,7 @@ class ChatItem extends React.Component {
 								</ListItem>
 								<IconButton className={''}
 								            aria-label="delete"
-								            onClick={() => this.handleDelete(this.props.chatId)}>
+								            onClick={() => this.handleRemove(this.props.chatId)}>
 										<DeleteIcon />
 								</IconButton>
 						</div>
@@ -60,6 +60,6 @@ class ChatItem extends React.Component {
 
 const mapStateToProps = ({}) => ({});
 
-const mapDispatchToProps = dispatch => bindActionCreators({  push, deleteChat }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({  push, removeChat }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatItem);

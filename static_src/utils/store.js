@@ -13,7 +13,7 @@ const persistConfig = {
 		key: 'geekmessanger',
 		storage,
 		stateReconciler: autoMergeLevel2,
-		whitelist: ['', ''], //messageReducer chatReducer
+		whitelist: ['messageReducer', 'chatReducer'], //
 };
 
 export const history = createBrowserHistory();
