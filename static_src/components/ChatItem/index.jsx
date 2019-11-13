@@ -48,6 +48,7 @@ class ChatItem extends React.Component {
 												<ListItemText primary={ this.props.chatName } />
 								</ListItem>
 								<IconButton className={''}
+								            style={{width: '64px'}}
 								            aria-label="delete"
 								            onClick={() => this.handleRemove(this.props.chatId)}>
 										<DeleteIcon />
