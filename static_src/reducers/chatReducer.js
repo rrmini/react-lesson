@@ -15,14 +15,7 @@ const initialStore = {
 export default function chatReducer(store = initialStore, action) {
 		switch (action.type) {
 				case SEND_MESSAGE: {
-						// return update(store, {
-						// 		chats:{ $merge: { [action.chatId]: {
-						// 				title: store.chats[action.chatId].title,
-						// 				messageList: [...store.chats[action.chatId].messageList, action.messageId],
-						// 				hasNews: action.sender === 'AngryBot',
-						// 				}
-						// 		}},
-						// });
+
 						return update(store, {chats: { [action.chatId]: {
 								messageList: {$push: [action.messageId]},
 								hasNews: { $set: action.sender === 'AngryBot' },

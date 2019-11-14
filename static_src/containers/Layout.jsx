@@ -14,11 +14,11 @@ import ChatList from './ChatList'
 
 export default class Layout extends React.Component {
 		static propTypes = {
-				chatId: PropTypes.number.isRequired,
+				// chatId: PropTypes.number.isRequired,
 		};
 
 		static defaultProps = {
-				chatId: 1,
+				// chatId: 1,
 		};
 
 		render(){

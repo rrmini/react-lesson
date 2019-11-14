@@ -1,4 +1,5 @@
 import React from 'react'
+import Dialog from '../components/Dialog'
 import Message from '../components/Message'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from "redux";
@@ -26,7 +27,7 @@ class MessageField extends React.Component {
 		// }
 
 		static propTypes = {
-				chatId: PropTypes.number.isRequired,
+				chatId: PropTypes.number,
 				chats: PropTypes.object.isRequired,
 				msg: PropTypes.object.isRequired,
 				sendMessage: PropTypes.func.isRequired,
@@ -34,6 +35,7 @@ class MessageField extends React.Component {
 
 		state = {
 				input : '',
+				openDialog: false,
 		};
 
 		componentDidMount () {
@@ -41,19 +43,24 @@ class MessageField extends React.Component {
 		}
 
 		componentDidUpdate (prevProps, _prevState){
-						const { msg } = this.props;
-						let prevLength = Object.keys(prevProps.msg).length;
-						let stateLength = Object.keys(msg).length;
-				const messageId = Object.keys(this.props.msg).length +1;
-
-						if (prevLength < stateLength &&
-								Object.values(msg)[Object.values(msg).length-1].from !== 'AngryBot') {
-								setTimeout(() => this.props.sendMessage('',randomChoice(botAnswers), 'AngryBot',  this.props.chatId), 1000);
-						}
+				// 		const { msg } = this.props;
+				// 		let prevLength = Object.keys(prevProps.msg).length;
+				// 		let stateLength = Object.keys(msg).length;
+				// const messageId = Object.keys(this.props.msg).length +1;
+				//
+				// 		if (prevLength < stateLength &&
+				// 				Object.values(msg)[Object.values(msg).length-1].from !== 'AngryBot') {
+				// 				setTimeout(() => this.props.sendMessage('',randomChoice(botAnswers), 'AngryBot',  this.props.chatId), 1000);
+				// 		}
 						document.getElementById('messageField').scrollTop = 9999;
 				}
 
 		handleSendMessage = (sender, message) => {
+
+				if (this.props.chatId === undefined) {
+						this.setState({openDialog: true});
+						return;
+				}
 
 				if (this.state.input.length > 0 || sender === 'AngryBot') {
 						const messageId = Object.keys(this.props.msg).length +1;
@@ -75,16 +82,25 @@ class MessageField extends React.Component {
 				}
 		};
 
+		closeDialog  = () => {
+				this.setState({ openDialog: false,})
+		};
 
 		render() {
 				const { msg, chatId, chats } = this.props;
 
-				const msgElements = chats[chatId].messageList.map( messageId =>(
+				let msgElements = '';
+
+				if (chatId !== undefined) { msgElements = chats[chatId].messageList.map( messageId =>(
 						<Message
 								key={(new Date().getTime()) * Math.random()}
 								from={ msg[messageId].from }
 								text={ msg[messageId].text}
 						/>));
+				}
+				// if (chatId !== undefined) {
+				// 		msgElements = '';
+				// }
 
 				return(
 								<div className="_layout">
@@ -111,6 +127,11 @@ class MessageField extends React.Component {
 										        onClick = { () => this.handleSendMessage('me', this.state.input) }>
 												Send message
 										</Button>
+
+										<Dialog title={' Warning '}
+										        content={ ' select chat ' }
+										        open={this.state.openDialog}
+										        handleClose={this.closeDialog} />
 								</div>
 				)
 		}

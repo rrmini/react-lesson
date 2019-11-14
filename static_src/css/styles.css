@@ -42,3 +42,11 @@ body {
 		text-align: center;
 		align-self: stretch;
 }
+
+.link {
+		cursor: pointer;
+}
+
+.link:hover {
+		color: red;
+}

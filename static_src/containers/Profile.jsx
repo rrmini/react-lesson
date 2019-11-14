@@ -2,13 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from "redux";
 import connect from "react-redux/es/connect/connect";
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
+import { push } from 'connected-react-router'
 
 class Profile extends React.Component {
 		static propTypes = {
 				userName: PropTypes.string.isRequired,
 				email: PropTypes.string.isRequired,
+				push: PropTypes.func.isRequired,
 		};
+
+		// handleNavigate = (link) => {
+		// 		this.props.push(link);
+		// };
 
 		render () {
 				return (
@@ -18,7 +24,7 @@ class Profile extends React.Component {
 								<p>e-mail:
 										<a href="mailto:exemple@gmail.com">{ this.props.email }</a>
 								</p>
-								<Link to="/"> back </Link>
+								<a className="link" onClick={ () => this.props.push(`/`)}> back </a>
 						</div>
 				)
 		}
@@ -29,6 +35,6 @@ const mapStateToProps = ({ profileReducer }) => ({
 		email: profileReducer.email,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ push }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

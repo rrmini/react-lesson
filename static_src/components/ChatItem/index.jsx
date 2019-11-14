@@ -34,6 +34,7 @@ class ChatItem extends React.Component {
 		};
 
 		handleRemove = (chatId) => {
+				this.props.push(`/`);
 				this.props.removeChat(chatId)
 				// console.log('треба удалить чат ' +chatId);
 		};

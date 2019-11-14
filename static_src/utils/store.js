@@ -31,7 +31,7 @@ function initStore() {
 				),
 		);
 
-		const persistor = persistStore(store);
+		const persistor = persistStore(store); //.purge()
 
 		return { store, persistor};
 }

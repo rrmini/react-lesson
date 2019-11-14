@@ -7,17 +7,21 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 class Header extends React.Component {
 		static propTypes = {
-				chatId:     PropTypes.number.isRequired,
+				chatId:     PropTypes.number,
 				userName:   PropTypes.string.isRequired,
-				chats:  PropTypes.object.isRequired,
+				chats:  PropTypes.object,
 		};
 
 		static defaultProps = {
-				chatId: 1,
+				// chatId: 1,
 		};
 
 		render() {
-				const title = this.props.chats[this.props.chatId].title;
+				let title = '';
+				if (undefined !== this.props.chatId) {
+						title = this.props.chats[this.props.chatId].title;
+				}
+				// const title = this.props.chats[this.props.chatId].title;
 				return (
 						<div>
 								<h1 className="header"> {title  } </h1>
@@ -34,6 +38,7 @@ class Header extends React.Component {
 const mapStateToProps = ({ profileReducer, chatReducer }) => ({
 		userName: profileReducer.userName,
 		chats: chatReducer.chats,
+		// chatId: chatReducer.chatId, // ???
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
