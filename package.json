@@ -1,0 +1,53 @@
+{
+  "name": "lesson01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --mode development",
+    "server": "webpack-dev-server",
+    "build": "webpack",
+    "webpackwatch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rrmini/react-lesson.git"
+  },
+  "author": "roman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rrmini/react-lesson/issues"
+  },
+  "homepage": "https://github.com/rrmini/react-lesson#readme",
+  "dependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "@material-ui/core": "^4.5.1",
+    "@material-ui/icons": "^4.5.1",
+    "babel-loader": "^8.0.6",
+    "connected-react-router": "^6.5.2",
+    "css-loader": "^3.2.0",
+    "history": "^4.10.1",
+    "immutability-helper": "^3.0.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2",
+    "react-addons-update": "^15.6.2",
+    "react-dom": "^16.10.2",
+    "react-redux": "^7.1.1",
+    "react-router-dom": "^5.1.2",
+    "redux": "^4.0.4",
+    "redux-persist": "^6.0.0",
+    "style-loader": "^1.0.0",
+    "typeface-roboto": "0.0.75",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}

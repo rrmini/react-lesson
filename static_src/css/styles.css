@@ -1,0 +1,52 @@
+
+body {
+		font-family: Roboto;
+}
+
+.message-field {
+		display: flex;
+		flex-direction: column;
+		background-color: #e2e2e2;
+		height: 320px;
+		/*width: 100%;*/
+		padding: 20px;
+		overflow-y: scroll;
+		transition:all ease-in-out 0.4s
+}
+
+.layout {
+		height: 100%;
+		width: 50%;
+		margin: auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+}
+.message {
+		background-color: lightblue;
+		padding: 5px 15px;
+		border-radius: 20px;
+		font-size: 18px;
+		margin: 5px;
+}
+
+.message-sender {
+		margin: 15px !important;
+		padding: 15px;
+		color: gray;
+		font-size: 14px;
+}
+
+.header {
+		text-align: center;
+		align-self: stretch;
+}
+
+.link {
+		cursor: pointer;
+}
+
+.link:hover {
+		color: red;
+}
