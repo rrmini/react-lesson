@@ -6,8 +6,9 @@ import { bindActionCreators } from "redux";
 import connect from "react-redux/es/connect/connect";
 import '../css/styles.css'
 import { Input, Button } from '@material-ui/core';
-import { sendMessage } from '../actions/messageActions'
+import { sendMessage, loadMessages } from '../actions/messageActions'
 import SendIcon from '@material-ui/icons/Send';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const botAnswers = [
 		'Отстань, я робот',
@@ -31,6 +32,7 @@ class MessageField extends React.Component {
 				chats: PropTypes.object.isRequired,
 				msg: PropTypes.object.isRequired,
 				sendMessage: PropTypes.func.isRequired,
+				isLoading: PropTypes.bool.isRequired,
 		};
 
 		state = {
@@ -40,19 +42,20 @@ class MessageField extends React.Component {
 
 		componentDidMount () {
 				//this.textInput.current.focus;
+				// fetch('/api/messages.json')
+				// 		.then(body => body.json())
+				// 		.then(json => {
+				// 				json.forEach(msg =>{
+				// 						this.props.sendMessage(msg.id, msg.text, msg.sender, msg.chatId);
+				// 				})
+				// 		})
+
+				this.props.loadMessages();
 		}
 
 		componentDidUpdate (prevProps, _prevState){
-				// 		const { msg } = this.props;
-				// 		let prevLength = Object.keys(prevProps.msg).length;
-				// 		let stateLength = Object.keys(msg).length;
-				// const messageId = Object.keys(this.props.msg).length +1;
-				//
-				// 		if (prevLength < stateLength &&
-				// 				Object.values(msg)[Object.values(msg).length-1].from !== 'AngryBot') {
-				// 				setTimeout(() => this.props.sendMessage('',randomChoice(botAnswers), 'AngryBot',  this.props.chatId), 1000);
-				// 		}
-						document.getElementById('messageField').scrollTop = 9999;
+
+						// document.getElementById('messageField').scrollTop = 9999;
 				}
 
 		handleSendMessage = (sender, message) => {
@@ -87,6 +90,10 @@ class MessageField extends React.Component {
 		};
 
 		render() {
+				if (this.props.isLoading) {
+						return <CircularProgress />
+				}
+
 				const { msg, chatId, chats } = this.props;
 
 				let msgElements = '';
@@ -98,9 +105,6 @@ class MessageField extends React.Component {
 								text={ msg[messageId].text}
 						/>));
 				}
-				// if (chatId !== undefined) {
-				// 		msgElements = '';
-				// }
 
 				return(
 								<div className="_layout">
@@ -140,8 +144,9 @@ class MessageField extends React.Component {
 const mapStateToProps = ({ chatReducer, messageReducer }) => ({
 		chats: chatReducer.chats,
 		msg: messageReducer.msg,
+		isLoading: messageReducer.isLoading,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({sendMessage}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage, loadMessages }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageField);
