@@ -34,6 +34,7 @@ class MessageField extends React.Component {
 				msg: PropTypes.object.isRequired,
 				sendMessage: PropTypes.func.isRequired,
 				isLoading: PropTypes.bool.isRequired,
+				loadChats: PropTypes.func.isRequired,
 		};
 
 		state = {
@@ -51,8 +52,6 @@ class MessageField extends React.Component {
 				// 				})
 				// 		})
 				this.props.loadChats();
-
-				// this.props.loadMessages();
 		}
 
 		componentDidUpdate (prevProps, _prevState){

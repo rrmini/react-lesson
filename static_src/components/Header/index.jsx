@@ -4,17 +4,23 @@ import { bindActionCreators } from "redux";
 import connect from "react-redux/es/connect/connect";
 import { Link } from 'react-router-dom'
 import SettingsIcon from '@material-ui/icons/Settings';
+import { loadProfile } from '../../actions/profileActions'
 
 class Header extends React.Component {
 		static propTypes = {
 				chatId:     PropTypes.number,
 				userName:   PropTypes.string.isRequired,
-				chats:  PropTypes.object,
+				chats:      PropTypes.object,
+				loadProfile: PropTypes.func.isRequired,
 		};
 
 		static defaultProps = {
 				// chatId: 1,
 		};
+
+		componentDidMount () {
+				this.props.loadProfile();
+		}
 
 		render() {
 				let title = '';
@@ -38,9 +44,8 @@ class Header extends React.Component {
 const mapStateToProps = ({ profileReducer, chatReducer }) => ({
 		userName: profileReducer.userName,
 		chats: chatReducer.chats,
-		// chatId: chatReducer.chatId, // ???
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ loadProfile }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

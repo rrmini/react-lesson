@@ -23,19 +23,9 @@ export default function chatReducer(store = initialStore, action) {
 								hasNews: { $set: action.sender === 'bot' },
 						} }});
 				}
-				// case SUCCESS_MESSAGES_LOADING: {
-				// 		const chats = {...store.chats};
-				// 		action.payload.forEach(msg => {
-				// 				const { id, chatId } = msg;
-				// 				chats[chatId].messageList.push(id);
-				// 		});
-				// 		return update(store, {
-				// 				chats: { $set: chats },
-				// 				isLoading: { $set: false },
-				// 		});
-				// }
 
 				case SUCCESS_CHATS_LOADING: {
+						console.log(action.payload.entities);
 						return update(store, {
 								chats: { $set: action.payload.entities.chats },
 								isLoading: { $set: false },
