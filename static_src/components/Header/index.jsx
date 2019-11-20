@@ -4,7 +4,8 @@ import { bindActionCreators } from "redux";
 import connect from "react-redux/es/connect/connect";
 import { Link } from 'react-router-dom'
 import SettingsIcon from '@material-ui/icons/Settings';
-import { loadProfile } from '../../actions/profileActions'
+import { loadProfile } from '../../actions/profileActions';
+import PushToggle from '../PushToggle'
 
 class Header extends React.Component {
 		static propTypes = {
@@ -30,6 +31,7 @@ class Header extends React.Component {
 				// const title = this.props.chats[this.props.chatId].title;
 				return (
 						<div>
+								<PushToggle key={'pushToggle'}/>
 								<h1 className="header"> {title  } </h1>
 								<p style={{textAlign : 'end'}}>Signed in as {this.props.userName}</p>
 

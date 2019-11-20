@@ -18,7 +18,7 @@ export default function profileReducer(store = initStore, action) {
 						});
 				}
 				case SUCCESS_PROFILE_LOADING: {
-						console.log(action.payload.email);
+						// console.log(action.payload.email);
 						return update(store, {
 								userName: {$set:  action.payload.name},
 								email: {$set: action.payload.email},

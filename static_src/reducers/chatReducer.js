@@ -25,7 +25,7 @@ export default function chatReducer(store = initialStore, action) {
 				}
 
 				case SUCCESS_CHATS_LOADING: {
-						console.log(action.payload.entities);
+						// console.log(action.payload.entities);
 						return update(store, {
 								chats: { $set: action.payload.entities.chats },
 								isLoading: { $set: false },
