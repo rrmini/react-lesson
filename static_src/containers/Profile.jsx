@@ -12,9 +12,6 @@ class Profile extends React.Component {
 				push: PropTypes.func.isRequired,
 		};
 
-		// handleNavigate = (link) => {
-		// 		this.props.push(link);
-		// };
 
 		render () {
 				return (

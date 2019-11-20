@@ -5,16 +5,16 @@ import './style.css'
 export default class Child extends React.Component {
 
 		static propTypes = {
-				from: PropTypes.string.isRequired,
+				sender: PropTypes.string.isRequired,
 				text: PropTypes.string.isRequired,
 		};
 
 		render() {
 				return(
 						<div className="message"
-						     style={ {alignSelf: this.props.from == 'AngryBot' ?
+						     style={ {alignSelf: this.props.sender === 'bot' ?
 								     'flex-start' : 'flex-end' } }>
-								<p >{this.props.from + ' : ' + this.props.text}</p>
+								<p >{this.props.sender + ' : ' + this.props.text}</p>
 						</div>
 
 				)

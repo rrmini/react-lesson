@@ -16,7 +16,7 @@ const { store, persistor } = initStore();
 
 ReactDOM.render(
 		<Provider store={ store }>
-				<PersistGate loading={ null } persistor={ persistor }>
+				<PersistGate  loading={ null } persistor={ persistor }>
 						<ThemeProvider theme={theme}>
 								<ConnectedRouter history={history}>
 												<Router/>
